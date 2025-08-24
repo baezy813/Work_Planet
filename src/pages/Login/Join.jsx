@@ -18,7 +18,25 @@ export default function JoinForm() {
     })
     const navigate = useNavigate()
     const onSubmit = (data) => {
-        console.log(data)
+        const existingUsers = JSON.parse(localStorage.getItem('users')||'[]')
+
+        // 중복 아이디 체크
+        const isDuplicateId = existingUsers.some(user => user.userid === data.userid) 
+        if(isDuplicateId){
+            alert('이미 존재하는 아이디입니다.')
+            return
+        }
+
+        const newUser = {
+            username: data.username,
+            userid: data.userid,
+            createdAt: new Date().toISOString()
+        }
+
+       existingUsers.push(newUser);
+       alert('회원가입이 완료되었습니다.')
+       localStorage.setItem('users', JSON.stringify(existingUsers))        
+        console.log(existingUsers)
         navigate('/login')
     }
 

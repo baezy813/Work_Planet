@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import InputField from '../../components/Login/inputField'
 import { Link } from 'react-router-dom'
 
-
 export default function LoginForm() {
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues:{
@@ -13,6 +12,16 @@ export default function LoginForm() {
     })
 
     const onSubmit = (data) => {
+        const users = JSON.parse(localStorage.getItem('users')||'[]')
+        const user = users.find(u => u.userid === data.userid && u.userpw === data.userpw);
+        
+        if(user){
+            localStorage.setItem('user', JSON.stringify(user))
+            
+            window.location.href = '/mypage'
+        }else{
+            alert('아이디 또는 비밀번호가 일치하지 않습니다.')
+        }
         console.log(data)
     }
 
