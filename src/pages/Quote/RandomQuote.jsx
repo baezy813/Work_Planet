@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import { fetchGetRandomQuote } from '../../api/random-quote'
 
 export default function RandomQuote(){
     const [quote, setQuote] = useState(null)
@@ -10,18 +11,11 @@ export default function RandomQuote(){
         setLoading(true)
         setError(null)
         
-        try {
-            const response = await fetch('https://korean-advice-open-api.vercel.app/api/advice')
-            if (!response.ok) {
-                throw new Error('명언을 가져오는데 실패했습니다.')
-            }
-            
-            const data = await response.json()
-            setQuote(data)
-        } catch (err) {
+       try{
+        const data = await fetchGetRandomQuote()
+        setQuote(data)}catch(err){
             setError(err.message)
-            console.error('명언 가져오기 오류:', err)
-        } finally {
+        }finally{
             setLoading(false)
         }
     }
