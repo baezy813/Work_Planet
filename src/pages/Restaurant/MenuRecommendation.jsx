@@ -2,14 +2,17 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { useFavorite } from '../../contexts/FavoriteContext'
 import allMenus from '../../data/recommendFoodMenu.js' 
+import SearchInput from '../../components/Restaurant/SearchInput.jsx'
 
 export default function MenuRecommendation(){
-    const [selectedCategory, setSelectedCategory] = useState('breakfast')
+    const [selectedCategory, setSelectedCategory] = useState('allMenus')
     const [selectedMenu, setSelectedMenu] = useState(null)
-    
+    const [searchQuery, setSearchQuery]=useState('')
+
     const { favoriteMenus, toggleFavorite, isFavorite, removeFavorite } = useFavorite()
 
     const categories = [
+        { key: 'allMenus', name: '전체', icon: '🍽️' },
         { key: 'breakfast', name: '아침', icon: '🌅' },
         { key: 'lunch', name: '점심', icon: '🌞' },
         { key: 'dinner', name: '저녁', icon: '🌙' },
@@ -20,6 +23,21 @@ export default function MenuRecommendation(){
         setSelectedCategory(category)
     }
 
+    const handleSearch = (e)=>{
+        setSearchQuery(e.target.value)
+    }
+
+    // 전체 메뉴 데이터 가져오기
+    const getMenusByCategory = ()=>{
+        if(selectedCategory === 'allMenus'){
+            return Object.values(allMenus).flat()
+        }
+        return allMenus[selectedCategory] || []
+    }
+   
+    const filteredMenus = getMenusByCategory()?.filter(menu => 
+        menu.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || []
 
     return(
         <S.Container>
@@ -41,11 +59,14 @@ export default function MenuRecommendation(){
                 ))}
             </S.CategoryTabs>
 
-           
+            <SearchInput value={searchQuery} onChange={handleSearch}/>
+            {filteredMenus.length === 0 &&(
+                <S.NoResults>검색 결과가 없습니다.</S.NoResults>
+            )}
 
             <S.Content>
                 <S.MenuGrid>
-                    {allMenus[selectedCategory].map((item)=>(
+                    {filteredMenus.map((item)=>(
                         <S.MenuItem onClick={()=>{setSelectedMenu(item)}} key={item.name}>
                             <S.FavoriteButton 
                                 onClick={(e) => {
@@ -66,7 +87,7 @@ export default function MenuRecommendation(){
 
                 <S.Sidebar>
                     <S.RandomButton onClick={() => {
-                        const categoryMenus = allMenus[selectedCategory]
+                        const categoryMenus = getMenusByCategory()
                         const randomIndex = Math.floor(Math.random() * categoryMenus.length)
                         setSelectedMenu(categoryMenus[randomIndex])
                     }}>
@@ -369,5 +390,12 @@ const S = {
         color: #718096;
         text-align: center;
         margin: 0;
+    `,
+
+    NoResults: styled.p`
+        text-align: center;
+        font-size: 16px;
+        color: #718096;
+        margin: 20px 0;
     `
 }
