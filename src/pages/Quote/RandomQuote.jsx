@@ -1,12 +1,15 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 import { fetchGetRandomQuote } from '../../api/random-quote'
+import SnakeBar from '../../components/common/snakeBar'
+import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
 
 export default function RandomQuote(){
     const [quote, setQuote] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
+    const {copied, copy} = useCopyToClipboard()
     const fetchRandomQuote = async () => {
         setLoading(true)
         setError(null)
@@ -40,7 +43,10 @@ export default function RandomQuote(){
             {quote && (
                 <S.QuoteCard>
                     <S.QuoteMessage>
-                        &quot;{quote.message}&quot;
+                        <span onClick={()=>copy(quote.message)}>
+                          {quote.message}
+                        </span>
+                        {copied && <SnakeBar message="복사되었습니다." />}
                     </S.QuoteMessage>
                     <S.QuoteAuthor>
                         - {quote.author}
@@ -105,6 +111,7 @@ const S = {
         margin-bottom: 25px;
         font-style: italic;
         font-weight: 500;
+        cursor: pointer;
     `,
 
     QuoteAuthor: styled.p`
