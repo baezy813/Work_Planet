@@ -12,7 +12,26 @@ export default function Mypage(){
     const handleProfileSetting = ()=>{
        
     }
-
+    const infoDetailData = [
+        {
+            label: '사용자명',
+            value: user?.username || 'Guest',
+        },
+        {
+            label: '아이디',
+            value: user?.userid || 'Guest',
+        },
+        
+        {
+            label: '가입일',
+            value: formatDate(user?.createdAt),
+        },
+        
+        {
+            label: '직업',
+            value: user?.job || 'Guest',
+        },
+    ]
     return(
         <S.Container>
             <S.Header>
@@ -33,22 +52,13 @@ export default function Mypage(){
                     <S.Card>
                         <S.CardTitle>📊 계정 정보</S.CardTitle>
                         <S.InfoGrid>
-                            <S.InfoItem>
-                                <S.InfoLabel>사용자명</S.InfoLabel>
-                                <S.InfoValue>{user?.username || 'Guest'}</S.InfoValue>
-                            </S.InfoItem>
-                            <S.InfoItem>
-                                <S.InfoLabel>아이디</S.InfoLabel>
-                                <S.InfoValue>{user?.userid || 'Guest'}</S.InfoValue>
-                            </S.InfoItem>
-                            <S.InfoItem>
-                                <S.InfoLabel>가입일</S.InfoLabel>
-                                <S.InfoValue>{formatDate(user?.createdAt)}</S.InfoValue>
-                            </S.InfoItem>
-                            <S.InfoItem>
-                                <S.InfoLabel>직업</S.InfoLabel>
-                                <S.InfoValue>{user?.job || 'Guest'}</S.InfoValue>
+                            {infoDetailData.map((item)=>(
+                                <S.InfoItem key={item.label}>
+                                    <S.InfoLabel>{item.label}</S.InfoLabel>
+                                    <S.InfoValue>{item.value}</S.InfoValue>
                                 </S.InfoItem>
+                            ))}
+                            
                         </S.InfoGrid>
                     </S.Card>
 

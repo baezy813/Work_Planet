@@ -1,85 +1,62 @@
-
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 function Navbar({ setIsLogoutPopupOpen }) {
+  const navigate = useNavigate()
   const handleLogout = () => {
     setIsLogoutPopupOpen(true)
   }
 
+  const navBarMenuList =[
+    {
+      link: '/mypage',  
+      icon: '👤',
+      text: 'Profile',
+    },
+    {
+      link: '/board',
+      icon: '📋',
+      text: '게시판',
+    },
+    {
+      link: '/restaurant',
+      icon: '🍜',
+      text: '맛집',
+    },
+    {
+      link: '/playlist',
+      icon: '🎵',
+      text: '플레이리스트',
+    },
+    {
+      link: '/quote',
+      icon: '💭',
+      text: '명언',
+    },
+  ]
   return (
     <S.Sidebar>
       <S.SidebarHeader>
         <S.Logo>
           <S.LogoIcon>💼</S.LogoIcon>
-          <S.LogoText>Work Planet</S.LogoText>
+          <S.LogoText onClick={()=> navigate('/mypage')}>Work Planet</S.LogoText>
         </S.Logo>
       </S.SidebarHeader>
 
       <S.NavMenu>
         <S.NavItem>
-          <NavLink 
-            to="/mypage" 
+          {navBarMenuList.map((item)=>(
+            <NavLink 
+            key={item.link}
+            to={item.link} 
             className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          >
-            <S.MenuIcon>👤</S.MenuIcon>
-            <S.MenuText>Profile</S.MenuText>
-          </NavLink>
+            >
+            <S.MenuIcon>{item.icon}</S.MenuIcon>
+            <S.MenuText>{item.text}</S.MenuText>
+            </NavLink>
+          ))}
         </S.NavItem>
-       
-
-        <S.NavItem>
-          <NavLink 
-            to="/board" 
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          >
-            <S.MenuIcon>📋</S.MenuIcon>
-            <S.MenuText>게시판</S.MenuText>
-          </NavLink>
-        </S.NavItem>
-
-        {/* <S.NavItem>
-          <NavLink 
-            to="/commute" 
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          >
-            <S.MenuIcon>🚇</S.MenuIcon>
-            <S.MenuText>출퇴근</S.MenuText>
-          </NavLink>
-        </S.NavItem> */}
-
-        <S.NavItem>
-          <NavLink 
-            to="/restaurant" 
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          >
-            <S.MenuIcon>🍜</S.MenuIcon>
-            <S.MenuText>맛집</S.MenuText>
-          </NavLink>
-        </S.NavItem>
-
-        <S.NavItem>
-          <NavLink 
-            to="/playlist" 
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          >
-            <S.MenuIcon>🎵</S.MenuIcon>
-            <S.MenuText>플레이리스트</S.MenuText>
-          </NavLink>
-        </S.NavItem>
-
-        <S.NavItem>
-          <NavLink 
-            to="/quote" 
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          >
-            <S.MenuIcon>💭</S.MenuIcon>
-            <S.MenuText>명언</S.MenuText>
-          </NavLink>
-        </S.NavItem>
-
-        
       </S.NavMenu>
 
       <S.SidebarFooter>
@@ -121,6 +98,7 @@ const S = {
     display: flex;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
   `,
 
   LogoIcon: styled.span`

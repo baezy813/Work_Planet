@@ -24,29 +24,34 @@ export default function LoginForm() {
         }
         console.log(data)
     }
-
+    const inputFieldData = [
+        {
+            type: 'text',
+            placeholder: '아이디를 입력해주세요',
+            name: 'userid',
+            validation: {required: '아이디를 입력해주세요'},
+        },
+        {
+            type: 'password',
+            placeholder: '비밀번호를 입력해주세요',
+            name: 'userpw',
+            validation: {required: '비밀번호를 입력해주세요'},
+        }
+    ]
     return(
         <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
             <S.FormTitle>로그인</S.FormTitle>
 
-            <InputField
-                type='text'
-                placeholder='아이디를 입력해주세요'
-                name='userid'
-                register={register}
-                errors={errors}
-                validation={{required: '아이디를 입력해주세요'}}
-            />
+            {inputFieldData.map((item)=>(
+                <InputField
+                    key={item.name}
+                    {...item}
+                    register={register}
+                    errors={errors}
+                />
+            ))}
 
-            <InputField
-                type='password'
-                placeholder='비밀번호를 입력해주세요'
-                name='userpw'
-                register={register}
-                errors={errors}
-                validation={{required: '비밀번호를 입력해주세요'}}
-            />
-
+             
             <S.SubmitButton type='submit'>로그인</S.SubmitButton>
             <S.LinkButton to='/join'>회원가입</S.LinkButton>
         </S.FormContainer>
