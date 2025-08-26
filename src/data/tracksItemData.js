@@ -79,3 +79,87 @@ export const tracksItemData = [
         image: 'https://via.placeholder.com/150',
     }
 ]
+
+export const musicTypeInfo = [
+    {
+            
+            type: '출근송',
+            title: 'Song 1',
+            singer: 'Artist 1',
+            albumName: 'Album 1',
+            image: 'https://via.placeholder.com/150',
+        },
+    {
+        type: '출근송',
+        title: 'Song 1',
+        singer: 'Artist 1',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },
+    {
+        type: '출근송',
+        title: 'Song 1',
+        singer: 'Artist 1',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },
+    {
+     
+        type: '퇴근송',
+        title: 'Song 2',
+        singer: 'Artist 2', 
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },
+    {
+       
+        type: '야근송',
+        title: '야야 3',
+        singer: 'Artist 3',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },{
+     
+        type: '업무 많을때',
+        title: 'Song 4',
+        singer: 'Artist 4',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },{
+        
+        type: '집중',
+        title: 'Song 5',
+        singer: 'Artist 5',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },
+    {
+         
+        type: '휴식',
+        title: 'Song 6',
+        singer: 'Artist 6',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },{
+        
+        type: '월급날',
+        title: 'Song 7',
+        singer: 'Artist 7',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },{
+        
+        type: '혼났을때',
+        title: 'Song 8',    
+        singer: 'Artist 8',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    },{
+        
+        type: '지옥철',
+        title: 'Song 9',
+        singer: 'Artist 9',
+        albumName: 'Album 1',
+        image: 'https://via.placeholder.com/150',
+    }
+]

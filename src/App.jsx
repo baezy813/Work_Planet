@@ -9,6 +9,8 @@ import Mypage from './pages/Mypage/MyPage'
 import RandomQuote from './pages/Quote/RandomQuote'
 import MenuRecommendation from './pages/Restaurant/MenuRecommendation'
 import PlayList from './pages/PlayList/page'
+import MusicDetail from './pages/PlayList/MusicDetail'
+
 import styled from 'styled-components'
 import { useState } from 'react'
 
@@ -38,7 +40,8 @@ function App() {
                                             <Route path="/mypage" element={<Mypage />} />
                                             <Route path="/quote" element={<RandomQuote />} />
                                             <Route path="/restaurant" element={<MenuRecommendation />} />
-                                            <Route path="/playlist" element={<PlayList />} />
+                                            <Route path="/playlist" element={<PlayList />} />  
+                                            <Route path="/playlist/musicdetail/:type" element={<MusicDetail />} />
                                         </Routes>
                                     </S.MainContent>
                                 </>
