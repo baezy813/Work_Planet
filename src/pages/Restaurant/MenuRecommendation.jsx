@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useFavorite } from '../../contexts/FavoriteContext'
 import allMenus from '../../data/recommendFoodMenu.js' 
 import SearchInput from '../../components/Restaurant/SearchInput.jsx'
-
+import { filterData } from '../../utils/filteredSearchData.js'
 export default function MenuRecommendation(){
     const [selectedCategory, setSelectedCategory] = useState('allMenus')
     const [selectedMenu, setSelectedMenu] = useState(null)
@@ -35,9 +35,7 @@ export default function MenuRecommendation(){
         return allMenus[selectedCategory] || []
     }
    
-    const filteredMenus = getMenusByCategory()?.filter(menu => 
-        menu.name.toLowerCase().includes(searchQuery.toLowerCase())
-    ) || []
+    const filteredMenus = filterData(getMenusByCategory(), searchQuery, ['name'])
 
     return(
         <S.Container>

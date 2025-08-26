@@ -1,19 +1,28 @@
 import styled from "styled-components";
+import { useState } from "react";
+import SearchInput from "../Restaurant/SearchInput";
 import { useSlideStore } from "../../stores/useSlider";
 import { tracksItemData } from "../../data/tracksItemData";
+import { filterData } from "../../utils/filteredSearchData";
 export default function TopTrackCard(){
     const {currentIndex, next, prev}= useSlideStore()
-   
-    
+   const [searchQuery, setSearchQuery] = useState('')
+   const handleSearch = (e)=>{
+    setSearchQuery(e.target.value)
+   }
+   const filteredMusic = filterData(tracksItemData, searchQuery, ['title', 'artist'])
     return(
         <S.Container>
+             <SearchInput placeholder='원하시는 음악을 입력해주세요' padding='16px 16px 16px 48px' value={searchQuery} onChange={handleSearch}/>
             <S.ButtonContainer>
                 <button onClick={prev}>prev</button>
                 <button onClick={next}>next</button>
             </S.ButtonContainer>
 
                 <S.CardContainer style={{transform: `translateX(-${currentIndex * 150}px)`}}>
-                {tracksItemData.map((item)=>(
+                
+                {filteredMusic.length > 0 ? (
+                    filteredMusic.map((item)=>(
                 <S.Card key={item.id}>
                     <img src={item.image} alt={item.title} />
                     <div>
@@ -21,7 +30,11 @@ export default function TopTrackCard(){
                         <div>{item.artist}</div>
                     </div>
                 </S.Card>
-            ))}
+            ))
+            ) : (
+                <S.NoResults>검색 결과가 없습니다.</S.NoResults>
+            )}
+
             </S.CardContainer>
         </S.Container>
     )
@@ -60,5 +73,10 @@ const S = {
             transition: 0.3s;
             transform: scale(1.2);
         }
+    `,
+    NoResults: styled.div`
+        font-size: 16px;
+        font-weight: 600;
+        color: #888;
     `,
 }
