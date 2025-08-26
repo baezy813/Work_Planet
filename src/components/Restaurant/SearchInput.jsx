@@ -1,15 +1,16 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-export default function SearchInput({ value, onChange, placeholder = "메뉴를 검색해보세요!" }) {
+export default function SearchInput({ value, onChange, placeholder = "메뉴를 검색해보세요!" ,style, padding}) {
     return (
-        <S.SearchContainer>
+        <S.SearchContainer style={style}>
             <S.SearchIcon>🔍</S.SearchIcon>
             <S.SearchInput
                 type="text"
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
+                style={{padding: padding}}
             />
         </S.SearchContainer>
     )
@@ -18,14 +19,15 @@ export default function SearchInput({ value, onChange, placeholder = "메뉴를 
 SearchInput.propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    style: PropTypes.object,
+    padding: PropTypes.string
 }
 
 const S = {
     SearchContainer: styled.div`
         position: relative;
         max-width: 600px;
-        margin: 0 auto 40px;
     `,
 
     SearchIcon: styled.span`
@@ -40,7 +42,6 @@ const S = {
 
     SearchInput: styled.input`
         width: 100%;
-        padding: 16px 16px 16px 48px;
         border: 2px solid #e2e8f0;
         border-radius: 12px;
         font-size: 16px;
